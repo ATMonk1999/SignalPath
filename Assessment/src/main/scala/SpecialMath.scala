@@ -6,6 +6,7 @@ object SpecialMath {
     }
     try {
       println(extraSpecialMath(args(0).toInt))
+      println(recursiveSpecialMath(args(0).toInt))
     } catch {
       case ex : Throwable =>
         println(s"error: ${ex.getMessage}")
@@ -43,5 +44,23 @@ object SpecialMath {
     else (for(i <- 2L to n) yield i).foldLeft((0L, 1L)) {
       case ((minus2, minus1), i) => (minus1, i + minus1 + minus2)
     }._2
+  }
+
+  /**
+   * Here's the tail-recursive version.  Should've gone ahead and done this, it's better.  Wasn't
+   * thinking clearly.
+   *
+   * @param n
+   * @return
+   */
+  def recursiveSpecialMath(n: Int): Long = {
+    @scala.annotation.tailrec
+    def recursivePart(prev: (Long, Long), i: Int, n: Int): Long = {
+      if(i == n) i + prev._1 + prev._2
+      else recursivePart((prev._2, i + prev._1 + prev._2), i + 1, n)
+    }
+    if(n < 0) throw new Exception("n must be >= 0")
+    if(n < 2) n
+    else recursivePart((0, 1), 2, n)
   }
 }
