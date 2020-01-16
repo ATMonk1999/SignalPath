@@ -29,6 +29,11 @@ object SpecialMath {
    * Non-recursive version, works great for n=90 (though for arbitrarily large n
    * Long won't be enough).
    *
+   * Alternatives I considered to avoid the generated integer sequence:
+   * - a recursive version, but that would basically do the same thing through the call stack
+   * - a simple 'for' loop that updates the '(minus2, minus1)' tuple in a var; but i hate using vars
+   * So I stuck with this.
+   *
    * @param n
    * @return
    */
